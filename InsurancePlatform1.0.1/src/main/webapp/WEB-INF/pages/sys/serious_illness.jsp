@@ -156,6 +156,7 @@ $(function(){
 });
 
 function getParams(){
+	
 	var productAttr={};
 	productAttr.attrCompany=getParamsVal('attr_company');
 	productAttr.attrIllnessNum=getParamsVal('attr_illness_num');
