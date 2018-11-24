@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <ul class="pagination pagination-sm no-margin pull-right">
 	<li><a class="first">首页</a></li>
 	<li><a class="pre">上一页</a></li>
@@ -12,11 +13,13 @@
 $("#pageId").on("click",".first,.pre,.next,.last",doJumpToPage)
 /*设置分页信息 */
 function setPagination(pageObject){
+	console.log(pageObject.pageCount)
 	$(".rowCount").html("总记录数("+pageObject.rowCount+")")
 	$(".pageCount").html("总页数("+pageObject.pageCount+")")
 	$(".pageCurrent").html("当前页("+pageObject.pageCurrent+")")
 	$("#pageId").data("pageCurrent",pageObject.pageCurrent);
 	$("#pageId").data("pageCount",pageObject.pageCount);
+
 }
 /*跳转某一页 */
 function doJumpToPage(){

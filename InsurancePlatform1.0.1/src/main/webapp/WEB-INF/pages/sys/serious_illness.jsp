@@ -47,7 +47,7 @@
 					    <textarea class="form-control" rows="3" style="width:270px"id="attr_illness_times"> </textarea>
 					  </div>
 					  <div class="form-group">
-					    <label for="score_attr_company">评分</label>
+					    <label for="score_illness_times">评分</label>
 					    <input type="email" class="form-control" id="score_illness_times" >
 					  </div>
 					</form>
@@ -156,43 +156,49 @@ $(function(){
 });
 
 function getParams(){
-	
-	var productAttr={};
-	productAttr.attrCompany=getParamsVal('attr_company');
-	productAttr.attrIllnessNum=getParamsVal('attr_illness_num');
-	productAttr.attrIllnessProportion=getParamsVal('attr_illness_proportion');
-	productAttr.attrIllnessTimes=getParamsVal('attr_illness_times');
-	productAttr.attrDeadDuty=getParamsVal('attr_dead_duty');
-	productAttr.attrSeriousIllnessDuty=getParamsVal('attr_serious_illness_duty');
-	productAttr.attrMildCaseNum=getParamsVal('attr_mild_case_num');
-	productAttr.attrMildCaseTimes=getParamsVal('attr_mild_case_times');
-	productAttr.attrMildCaseProportion=getParamsVal('attr_mild_case_proportion');
-	var productScore={};
-	productScore.scoreCompany=getParamsScoreVal('score_company');
-	productScore.scoreIllnessNum=getParamsScoreVal('score_illness_num');
-	productScore.scoreIllnessProportion=getParamsScoreVal('score_illness_proportion');
-	productScore.scoreIllnessTimes=getParamsScoreVal('score_illness_times');
-	productScore.scoreDeadDuty=getParamsScoreVal('score_dead_duty');
-	productScore.scoreSeriousIllnessDuty=getParamsScoreVal('score_serious_illness_duty');
-	productScore.scoreMildCaseNum=getParamsScoreVal('score_mild_case_num');
-	productScore.scoreMildCaseTimes=getParamsScoreVal('score_mild_case_times');
-	productScore.scoreMildCaseProportion=getParamsScoreVal('score_mild_case_proportion');
-	var productSer={};
-	productSer.name=getParamsVal('product_name');
-	productSer.productAttr=productAttr;
-	productSer.productScore=productScore;
-	console.log(productSer);
+	attrNullFlag=true;
+	scoreFlag=true;
+	scoreNullFlag=true;
+	scoreFlag=true;	
+	var params={};
+	params.attrCompany=getParamsVal('attr_company');
+	params.attrIllnessNum=getParamsVal('attr_illness_num');
+	params.attrIllnessProportion=getParamsVal('attr_illness_proportion');
+	params.attrIllnessTimes=getParamsVal('attr_illness_times');
+	params.attrDeadDuty=getParamsVal('attr_dead_duty');
+	params.attrSeriousIllnessDuty=getParamsVal('attr_serious_illness_duty');
+	params.attrMildCaseNum=getParamsVal('attr_mild_case_num');
+	params.attrMildCaseTimes=getParamsVal('attr_mild_case_times');
+	params.attrMildCaseProportion=getParamsVal('attr_mild_case_proportion');
+	params.scoreCompany=getParamsScoreVal('score_company');
+	params.scoreIllnessNum=getParamsScoreVal('score_illness_num');
+	params.scoreIllnessProportion=getParamsScoreVal('score_illness_proportion');
+	params.scoreIllnessTimes=getParamsScoreVal('score_illness_times');
+	params.scoreDeadDuty=getParamsScoreVal('score_dead_duty');
+	params.scoreSeriousIllnessDuty=getParamsScoreVal('score_serious_illness_duty');
+	params.scoreMildCaseNum=getParamsScoreVal('score_mild_case_num');
+	params.scoreMildCaseTimes=getParamsScoreVal('score_mild_case_times');
+	params.scoreMildCaseProportion=getParamsScoreVal('score_mild_case_proportion');
+	params.productName=getParamsVal('product_name');
+	//console.log(JSON.stringify(params))
 	//发起请求执行新增操作
-	var url="seriousProduct/doInsertSeriousIllnessProduct.do";
-	var params={productSer:productSer}
-	$.post(url,params,function(result){
-		if(result.state==1){
-			alert(result.message);
-			doGetObjects();
-		}else{
-			alert(result.message);
-		}
-	});
+	if(attrNullFlag==true&&scoreFlag==true&&attrFlag==true&&scoreNullFlag==true){
+		var url="product/doInsertSeriousIllnessProduct.do";
+		$.post(url,params,function(result){//4.callback
+			console.log(result)
+			if(result.status==200){
+				clearContent();
+				alert(result.msg);
+				
+			}else{
+				alert(result.msg);
+			}
+		});
+	}
+	
+		
+
+	
 }
 function getParamsVal(param){
 	var div=document.getElementById(param);
@@ -221,6 +227,13 @@ function getParamsScoreVal(param){
 		return
 	}
 	return paramVal;
+}
+function clearContent(){
+	var div=document.getElementsByClassName	("form-control");
+	for(i=0;i<div.length;i++){
+		div[i].value='';
+	}
+	
 }
 function doLoadEditPage(){
 	var title;

@@ -61,7 +61,14 @@ public class LoginController {
 	public String indexUI(){
 		  return "starter";
 	  }
-
+	/**
+	 * 加载分页插件
+	 * @return
+	 */
+	@RequestMapping("pageUI.do")
+	public String pageUI() {
+		return "/common/page";
+	}
 
 	  
 }

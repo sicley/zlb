@@ -1,8 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">用户管理</h3>
+				<h3 class="box-title">待上线产品</h3>
 
 				<div class="box-tools">
 					<div class="input-group input-group-sm" style="width: 350px;">
@@ -24,14 +25,12 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>用户名</th>
-							<th>邮箱</th>
-							<th>手机号</th>
-							<th>状态</th>
-							<th>创建时间</th>
-							<th>修改时间</th>
-							<th>操作</th>
+							<th>产品名称</th>
+							<th>保险公司名称</th>
+							<th>修改</th>
+							<th>上线</th>
+							<th>删除</th>
+							
 						</tr>
 					</thead>
 					<tbody id="tbodyId"></tbody>
@@ -44,6 +43,13 @@
 		<!-- /.box -->
 	</div>
 </div>
+<style>
+.btnp{
+   border:0px;
+   margin-left:-5px;
+  }
+
+</style>
 <script type="text/javascript">
 $(function(){
 	$("#pageId").load("pageUI.do");//page.html
@@ -53,6 +59,9 @@ $(function(){
 	.on("click",".btn-add,.btn-update",doLoadEditPage)
 	.on("click",".btn-search",doQueryObject);
 });
+function aaa(){
+	
+}
 /**加载添加或编辑页面*/
 function doLoadEditPage(){
 	//1.获得点击对象上的class,根据class判定点击的对象
@@ -99,25 +108,31 @@ function doQueryObject(){
 	doGetObjects();
 }
 function doGetObjects(){
-	var url="user/doFindPageObjects.do";
-	var pageCurrent=
+	var url="product/doFindSoonList.do";
+	var page=
 		$("#pageId").data("pageCurrent");
-	if(!pageCurrent)pageCurrent=1;
-	var params={"pageCurrent":pageCurrent};
+	if(!page)page=1;
+	var params={"page":page,"rows":10};
 	//console.log($(this));
-	params.username=$("#searchNameId").val();
 	console.log(params);
 	$.getJSON(url,params,function(result){//JsonResult
-		if(result.state==1){
+		console.log(result)
+		if(result.status==200){
+			console.log(result)
 		 //将服务端返回的数据添填充在表格中
-		 setTableTBodyRows(result.data.records);
+		 setTableTBodyRows(result.data.productSerList);
 		 //设置分页信息
+		 var length=result.data.length
+		 //var pageObject={"page":2,"rows":10,"length":length}
 		 setPagination(result.data);
 		}else{
-		  alert(result.message);
+		  alert(result.msg);
+		  
 		}
 	});
 }
+
+
 //4w(when,what,where,why)+h(how)
 function setTableTBodyRows(result){
 	//debugger;
@@ -126,43 +141,67 @@ function setTableTBodyRows(result){
 	//清空原有数据
 	tBody.empty();
 	//迭代结果集
+	console.log(result)
 	for(var i in result){//循环一次取一行记录
 	  //构建tr对象
 	  var tr=$("<tr></tr>");
-	  //在tr对象上绑定一个id
-	  tr.data("id",result[i].id);
-	  tr.data("valid",result[i].valid?0:1);
+	  
+	  //在tr对象上绑定一个id,一个属性id，一个得分id
+	  tr.data("productId",result[i].productId);
+	  tr.data("attrId",result[i].attrId);
+	  tr.data("scoreId",result[i].scoreId);
+	  
 	  //构建td对象
-	  var tds="<td><input type='radio' name='checkedId' value='"+result[i].id+"'/></td>"+
-	  "<td>"+result[i].username+"</td>"+
-	  "<td>"+result[i].email+"</td>"+
-	  "<td>"+result[i].mobile+"</td>"+
-	  "<td>"+(result[i].valid?"启用":"禁用")+"</td>"+
-	  "<td>"+result[i].createdTime+"</td>"+
-	  "<td>"+result[i].modifiedTime+"</td>"+
-	  "<td><button class='btn btn-defaultss' onClick='doValid(this)'>"+(result[i].valid?"禁用":"启用")+"</button></td>";
+	  //console.log(result[i])
+	  var obj=result[i].productId
+	  var tds=
+	  "<td>"+result[i].productName+"</td>"+
+	  "<td>"+result[i].attrCompany+"</td>"+
+	  "<td><button class='btnp changeBtn' onClick=getNew("+obj+")>修改</button></td>"+
+	  "<td><button class='btnp' onClick='changeStaOnline(this)'>上线</button></td>"+
+	  "<td><button class='btnp'onClick='doDeleteRow(this)'>删除</button></td>";
 	  //将td追加到tr中
 	  tr.append(tds);
 	  //将tr追加到tbody中
 	  tBody.append(tr);
+	  
 	}
 }
-/*在此函数中实现启用和禁用操作*/
-function doValid(obj){
+function getNew(i){
+	console.log(i)
+	//serious_illness_update.jsp
+}
+/*删除产品操作*/
+function doDeleteRow(obj){
+	
+	var tr=$(obj).parent().parent();
+	var productId=tr.data("productId");
+	var attrId=tr.data("attrId");
+	var scoreId=tr.data("scoreId");
+	var url="product/doDeleteObject.do";
+	var params={"productId":productId,"attrId":attrId,"scoreId":scoreId};
+	console.log(params);
+	$.post(url,params,function(result){
+		alert(result.msg);
+		doGetObjects();
+	});
+}
+/*产品上线操作*/
+function changeStaOnline(obj){
 	//1.url
-	var url="user/doValidById.do";
+	var url="product/changeStaOnline.do";
 	//2.params
-	var id=$(obj).parents("tr").data("id");
-	var valid=$(obj).parents("tr").data("valid");
-	var params={"id":id,"valid":valid}
+	var tr=$(obj).parent().parent();
+	var productId=tr.data("productId");
+	var params={"productId":productId}
 	console.log(params);
 	//3.post
 	$.post(url,params,function(result){//4.callback
-		if(result.state==1){
-			alert(result.message);
+		if(result.status==200){
+			alert(result.msg);
 			doGetObjects();
 		}else{
-			alert(result.message);
+			alert(result.msg);
 		}
 	});
 }

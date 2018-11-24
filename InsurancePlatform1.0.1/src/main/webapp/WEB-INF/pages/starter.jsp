@@ -444,7 +444,16 @@ desired effect
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
-    	  
+    	  $("#serious_illness_prod_b").click(function(){
+    		 $(".container-fluid").load("product/seriousIllnessProduct/soonList.do",function(){
+    			 $(".container-fluid").removeData("id");
+    		 });
+    	  })
+    	    $("#serious_illness_prod_c").click(function(){
+    		 $(".container-fluid").load("product/seriousIllnessProduct/onlineList.do",function(){
+    			 $(".container-fluid").removeData("id");
+    		 });
+    	  })
       })
      
      
