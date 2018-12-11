@@ -3,6 +3,7 @@ package com.zlb.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.type.IntegerTypeHandler;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import com.zlb.common.vo.SysResult;
 import com.zlb.pojo.ProductAttr;
 import com.zlb.pojo.ProductScore;
 import com.zlb.pojo.ProductSer;
+import com.zlb.pojo.SeriousIllnessProduct;
 import com.zlb.service.SeriousIllnessProductService;
 /**
  * 重疾产品管理controller
@@ -32,7 +34,7 @@ public class ProductController {
 	 * 重疾产品页的跳转
 	 * @return
 	 */
-	@RequestMapping("/seriousIllness.do")
+	@RequestMapping("/seriousIllness.html")
 	public String doSeriousIllnessIndex() {
 		return "sys/serious_illness";
 	}
@@ -61,15 +63,19 @@ public class ProductController {
 	 */
 	@RequestMapping(value="/doInsertSeriousIllnessProduct.do", method = RequestMethod.POST)
 	@ResponseBody
-	public SysResult doInsertSeriousIllnessProduct(String productName,String scoreCompany, 
-			String scoreIllnessNum,String scoreIllnessProportion,String scoreIllnessTimes,
-			String scoreDeadDuty,String scoreSeriousIllnessDuty, String scoreMildCaseNum,
-			String scoreMildCaseTimes,String scoreMildCaseProportion,String attrCompany,
+	public SysResult doInsertSeriousIllnessProduct(String productName,String companyProp,Float scoreCompany, 
+			Float scoreIllnessNum,Float scoreIllnessProportion,Float scoreIllnessTimes,
+			Float scoreDeadDuty,Float scoreSeriousIllnessDuty, Float scoreMildCaseNum,
+			Float scoreMildCaseTimes,Float scoreMildCaseProportion,String attrCompany,
 			String attrIllnessNum,String attrIllnessProportion,String attrIllnessTimes,
 			String attrDeadDuty,String attrSeriousIllnessDuty,String attrMildCaseNum,
 			String attrMildCaseTimes,String attrMildCaseProportion) {
 		try {
 			logger.info("---------新增产品");
+			//对产品类进行赋值
+			SeriousIllnessProduct product=new SeriousIllnessProduct();
+			product.setProductName(productName);
+			product.setCompanyProp(companyProp);
 			//对产品属性进行赋值
 			ProductAttr productAttr=new ProductAttr();
 			productAttr.setAttrCompany(attrCompany);
@@ -94,7 +100,7 @@ public class ProductController {
 			productScore.setScoreSeriousIllnessDuty(scoreSeriousIllnessDuty);
 			logger.info("--------"+productAttr);
 			logger.info("--------"+productScore);
-			int result=productService.insertSeriousIllnessProduct(productAttr,productScore,productName);
+			int result=productService.insertSeriousIllnessProduct(productAttr,productScore,product);
 			if(result==1) {
 				return SysResult.build(200, "产品添加成功！");
 			}
@@ -104,7 +110,7 @@ public class ProductController {
 		}
 		return SysResult.build(201, "产品添加失败！");
 	}
-	@RequestMapping("/seriousIllnessProduct/soonList.do")
+	@RequestMapping("/seriousIllnessProduct/soonList.html")
 	public String doSoonList() {
 		return "sys/soon_list";
 	}
@@ -163,7 +169,7 @@ public class ProductController {
 		}
 		return SysResult.build(201, "上线失败！");
 	}
-	@RequestMapping("/seriousIllnessProduct/onlineList.do")
+	@RequestMapping("/seriousIllnessProduct/onlineList.html")
 	public String onlineList() {
 		return "sys/online_list";
 	}
@@ -186,5 +192,67 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		return SysResult.build(201, "查询失败");
+	}
+	/**
+	 * 产品更新页的跳转
+	 * @return
+	 */
+	@RequestMapping("/serious_illness_update.html")
+	public String updatePage() {
+		return "sys/serious_illness_update";
+	}
+	@RequestMapping(value="/doUpdateSeriousIllnessProduct.do", method = RequestMethod.POST)
+	@ResponseBody
+	public SysResult doUpdateSeriousIllnessProduct(String productName, String companyProp,Float scoreCompany, 
+			Float scoreIllnessNum,Float scoreIllnessProportion,Float scoreIllnessTimes,
+			Float scoreDeadDuty,Float scoreSeriousIllnessDuty, Float scoreMildCaseNum,
+			Float scoreMildCaseTimes,Float scoreMildCaseProportion,String attrCompany,
+			String attrIllnessNum,String attrIllnessProportion,String attrIllnessTimes,
+			String attrDeadDuty,String attrSeriousIllnessDuty,String attrMildCaseNum,
+			String attrMildCaseTimes,String attrMildCaseProportion,Integer productId,
+			Integer attrId,Integer scoreId) {
+		try {
+			logger.info("---------doUpdateSeriousIllnessProduct----------");
+			//对产品类进行赋值
+			SeriousIllnessProduct product=new SeriousIllnessProduct();
+			product.setProductId(productId);
+			product.setProductName(productName);
+			product.setCompanyProp(companyProp);
+			product.setScoreId(scoreId);
+			product.setAttrId(attrId);
+			//对产品属性进行赋值
+			ProductAttr productAttr=new ProductAttr();
+			productAttr.setAttrId(attrId);
+			productAttr.setAttrCompany(attrCompany);
+			productAttr.setAttrDeadDuty(attrDeadDuty);
+			productAttr.setAttrIllnessNum(attrIllnessNum);
+			productAttr.setAttrIllnessProportion(attrIllnessProportion);
+			productAttr.setAttrIllnessTimes(attrIllnessTimes);
+			productAttr.setAttrMildCaseNum(attrMildCaseNum);
+			productAttr.setAttrMildCaseProportion(attrMildCaseProportion);
+			productAttr.setAttrMildCaseTimes(attrMildCaseTimes);
+			productAttr.setAttrSeriousIllnessDuty(attrSeriousIllnessDuty);
+			//对产品评分进行赋值
+			ProductScore productScore=new ProductScore();
+			productScore.setScoreId(scoreId);
+			productScore.setScoreCompany(scoreCompany);
+			productScore.setScoreDeadDuty(scoreDeadDuty);
+			productScore.setScoreIllnessNum(scoreIllnessNum);
+			productScore.setScoreIllnessProportion(scoreIllnessProportion);
+			productScore.setScoreIllnessTimes(scoreIllnessTimes);
+			productScore.setScoreMildCaseNum(scoreMildCaseNum);
+			productScore.setScoreMildCaseTimes(scoreMildCaseTimes);
+			productScore.setScoreMildCaseProportion(scoreMildCaseProportion);
+			productScore.setScoreSeriousIllnessDuty(scoreSeriousIllnessDuty);
+
+			logger.info("--------"+product);
+			logger.info("--------"+productAttr);
+			logger.info("--------"+productScore);
+			productService.updateSeriousIllnessProduct(productAttr,productScore,product);
+			return SysResult.build(200, "产品更新成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SysResult.build(201, "产品更新失败！");
 	}
 }

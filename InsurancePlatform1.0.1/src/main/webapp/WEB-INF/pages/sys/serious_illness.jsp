@@ -8,7 +8,16 @@
 					<form class="form-inline">
 					  <div class="form-group" >
 					    <label for="product_name">产品名称</label>
-					     <textarea class="form-control" style="width:270px" rows="3" id="product_name"> </textarea>
+					    <textarea class="form-control" style="width:270px" rows="3" id="product_name"> </textarea>
+					    
+					  </div >
+					  <div class="form-group">
+					    <label for="compony_prop">公司性质</label>
+					    <select  class="compony_prop" id="compony_prop">
+							  <option class="compony_prop_in" value ="中资">中资</option>
+							  <option class="compony_prop_in"value ="外资">外资</option>
+							  
+						</select>
 					  </div>
 					</form>
 					<form class="form-inline">
@@ -18,7 +27,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_company">评分</label>
-					    <input type="email" class="form-control" id="score_company" >
+					    <input type="text" class="form-control" id="score_company" >
 					  </div>
 					</form>
 						<form class="form-inline">
@@ -28,7 +37,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_illness_num">评分</label>
-					    <input type="email" class="form-control" id="score_illness_num" >
+					    <input type="text" class="form-control" id="score_illness_num" >
 					  </div>
 					</form>
 						<form class="form-inline">
@@ -38,7 +47,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_illness_proportion">评分</label>
-					    <input type="email" class="form-control" id="score_illness_proportion" >
+					    <input type="text" class="form-control" id="score_illness_proportion" >
 					  </div>
 					</form>
 					<form class="form-inline">
@@ -48,7 +57,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_illness_times">评分</label>
-					    <input type="email" class="form-control" id="score_illness_times" >
+					    <input type="text" class="form-control" id="score_illness_times" >
 					  </div>
 					</form>
 					<form class="form-inline">
@@ -58,7 +67,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_dead_duty">评分</label>
-					    <input type="email" class="form-control" id="score_dead_duty" >
+					    <input type="text" class="form-control" id="score_dead_duty" >
 					  </div>
 					</form>
 					<form class="form-inline">
@@ -68,7 +77,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_serious_illness_duty">评分</label>
-					    <input type="email" class="form-control" id="score_serious_illness_duty" >
+					    <input type="text" class="form-control" id="score_serious_illness_duty" >
 					  </div>
 					</form>
 					<form class="form-inline">
@@ -78,7 +87,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_mild_case_num">评分</label>
-					    <input type="email" class="form-control" id="score_mild_case_num" >
+					    <input type="text" class="form-control" id="score_mild_case_num" >
 					  </div>
 					</form>
 					<form class="form-inline">
@@ -88,7 +97,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_mild_case_times">评分</label>
-					    <input type="email" class="form-control" id="score_mild_case_times" >
+					    <input type="text" class="form-control" id="score_mild_case_times" >
 					  </div>
 					</form>
 					<form class="form-inline">
@@ -98,7 +107,7 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="score_mild_case_proportion">评分</label>
-					    <input type="email" class="form-control"  id="score_mild_case_proportion" >
+					    <input type="text" class="form-control"  id="score_mild_case_proportion" >
 					  </div>
 					</form>
 				</div>
@@ -136,6 +145,14 @@
 		
 		margin-right:10px;
 	}
+	.compony_prop{
+		 width:80px;
+		 outline: none;
+		 height: 30px;
+		 text-align:center;
+	}
+	
+	
 	
 </style>
 <script type="text/javascript" src="bower_components/treegrid/jquery.treegrid.extension.js"></script>
@@ -152,7 +169,8 @@ $(function(){
 	  .on("click",".btn-delete",doDeleteObject)
 	  .on("click",".btn-add,.btn-update",doLoadEditPage)
 	  doGetObjects();
-	 
+	  getChange("content-header-title","重疾产品-重疾产品添加");
+	  getIndex();
 });
 
 function getParams(){
@@ -162,12 +180,12 @@ function getParams(){
 	scoreFlag=true;	
 	var params={};
 	params.attrCompany=getParamsVal('attr_company');
-	params.attrIllnessNum=getParamsVal('attr_illness_num');
+	params.attrIllnessNum=getParamsNumVal('attr_illness_num');
 	params.attrIllnessProportion=getParamsVal('attr_illness_proportion');
 	params.attrIllnessTimes=getParamsVal('attr_illness_times');
 	params.attrDeadDuty=getParamsVal('attr_dead_duty');
 	params.attrSeriousIllnessDuty=getParamsVal('attr_serious_illness_duty');
-	params.attrMildCaseNum=getParamsVal('attr_mild_case_num');
+	params.attrMildCaseNum=getParamsNumVal('attr_mild_case_num');
 	params.attrMildCaseTimes=getParamsVal('attr_mild_case_times');
 	params.attrMildCaseProportion=getParamsVal('attr_mild_case_proportion');
 	params.scoreCompany=getParamsScoreVal('score_company');
@@ -180,7 +198,8 @@ function getParams(){
 	params.scoreMildCaseTimes=getParamsScoreVal('score_mild_case_times');
 	params.scoreMildCaseProportion=getParamsScoreVal('score_mild_case_proportion');
 	params.productName=getParamsVal('product_name');
-	//console.log(JSON.stringify(params))
+	params.companyProp=getComProp('compony_prop');
+	console.log(params.componyProp);
 	//发起请求执行新增操作
 	if(attrNullFlag==true&&scoreFlag==true&&attrFlag==true&&scoreNullFlag==true){
 		var url="product/doInsertSeriousIllnessProduct.do";
@@ -200,6 +219,12 @@ function getParams(){
 
 	
 }
+function getComProp(param){
+	var componyProp=document.getElementById(param);
+	var index=componyProp.selectedIndex ;
+	componyProp=componyProp.options[index].value;
+	return componyProp;
+}
 function getParamsVal(param){
 	var div=document.getElementById(param);
 	var paramVal=div.value;
@@ -217,16 +242,41 @@ function getParamsVal(param){
 function getParamsScoreVal(param){
 	var div=document.getElementById(param);
 	var paramVal=div.value;
-	if(paramVal.length>4 || isNaN(paramVal) && scoreNullFlag==true){
-		scoreNullFlag=false;
-		alert("评分部分请输入0-999的数字！");
-		return
-	}else if(paramVal.length<1 && scoreFlag==true){
+	if(paramVal.length<1 && scoreFlag==true){
 		scoreFlag=false;
 		alert("评分不能为空！");
 		return
+	}else if(!checkScoreVal(paramVal) && scoreNullFlag==true){
+		scoreNullFlag=false;	
+		alert("产品评分不大于99且不小于-999，最多2位小数！");
+		return
+	} 
+
+	return paramVal;
+}
+function getParamsNumVal(param){
+	var div=document.getElementById(param);
+	var paramVal=div.value;
+	if(paramVal>999 ||paramVal<0 ||isNaN(paramVal) || paramVal%1!=0 && scoreNullFlag==true){
+		scoreNullFlag=false;
+		alert("数量请输入0-999的整数！");
+		return
+	}else if(paramVal.length<1 && scoreFlag==true){
+		scoreFlag=false;
+		alert("数量不能为空！");
+		return
 	}
 	return paramVal;
+}
+function checkScoreVal(param){
+	var ret=new RegExp("^0{1}([.]{1}[0-9]{1,2})?$|^[0-9]?[0-9]\d*([.]{1}[0-9]{1,2})?$|^-[0-9]?[0-9]?[0-9]\d*([.]{1}[0-9]{1,2})?$");
+	if(ret.test(param)){
+		if(param<=99 && param>=-999){
+			return true
+		}
+		return false;
+	}
+	return false;
 }
 function clearContent(){
 	var div=document.getElementsByClassName	("form-control");
@@ -255,15 +305,7 @@ function doLoadEditPage(){
 
 }
 function doGetObjects() {
-	//获取tableId(显示表格的那个tableId)
-	var tableId="menuTable";
-	//table初始化时底层会自动发起异步请求
-	var table = new TreeTable(
-			   tableId,
-			   "menu/doFindObjects.do",
-			    colunms);
-	table.setExpandColumn(2);
-	table.init();
+
 }
 function doDeleteObject(){
 	//1.获取选中的菜单

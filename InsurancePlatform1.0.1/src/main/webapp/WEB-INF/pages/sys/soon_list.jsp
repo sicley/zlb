@@ -52,12 +52,14 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#pageId").load("pageUI.do");//page.html
+	$("#pageId").load("pageUI.html");//page.html
+	getChange("content-header-title","重疾产品-待上线产品列表");
 	//页面加载完成以后,异步加载角色信息
 	doGetObjects();
 	$(".input-group-btn")
 	.on("click",".btn-add,.btn-update",doLoadEditPage)
 	.on("click",".btn-search",doQueryObject);
+	getIndex();
 });
 function aaa(){
 	
@@ -84,7 +86,7 @@ function doLoadEditPage(){
 	}
 	//2.发异步请求加载页面
 	$(".container-fluid")
-	       .load("user/editUI.do",function(){
+	       .load("user/editUI.html",function(){
 		//修改页面标题
 		$(".box-title").html(title);
 	});
@@ -122,7 +124,7 @@ function doGetObjects(){
 		 //将服务端返回的数据添填充在表格中
 		 setTableTBodyRows(result.data.productSerList);
 		 //设置分页信息
-		 var length=result.data.length
+		 //var length=result.data.length
 		 //var pageObject={"page":2,"rows":10,"length":length}
 		 setPagination(result.data);
 		}else{
@@ -136,16 +138,16 @@ function doGetObjects(){
 //4w(when,what,where,why)+h(how)
 function setTableTBodyRows(result){
 	//debugger;
-	console.log("setTableTBodyRows");
 	var tBody=$("#tbodyId");
 	//清空原有数据
 	tBody.empty();
 	//迭代结果集
 	console.log(result)
+	//查询的结果绑定在div上
+	$(".container-fluid").data("resultList",result);
 	for(var i in result){//循环一次取一行记录
 	  //构建tr对象
 	  var tr=$("<tr></tr>");
-	  
 	  //在tr对象上绑定一个id,一个属性id，一个得分id
 	  tr.data("productId",result[i].productId);
 	  tr.data("attrId",result[i].attrId);
@@ -157,7 +159,7 @@ function setTableTBodyRows(result){
 	  var tds=
 	  "<td>"+result[i].productName+"</td>"+
 	  "<td>"+result[i].attrCompany+"</td>"+
-	  "<td><button class='btnp changeBtn' onClick=getNew("+obj+")>修改</button></td>"+
+	  "<td><button class='btnp changeBtn' onClick=getNew("+i+")>修改</button></td>"+
 	  "<td><button class='btnp' onClick='changeStaOnline(this)'>上线</button></td>"+
 	  "<td><button class='btnp'onClick='doDeleteRow(this)'>删除</button></td>";
 	  //将td追加到tr中
@@ -167,9 +169,14 @@ function setTableTBodyRows(result){
 	  
 	}
 }
+/*产品修改操作*/
 function getNew(i){
-	console.log(i)
-	//serious_illness_update.jsp
+	//i=i+1;
+	var list=$(".container-fluid").data("resultList")
+	$(".container-fluid").data("product",list[i]);
+	$(".container-fluid")
+    .load("product/serious_illness_update.html",function(){
+	});
 }
 /*删除产品操作*/
 function doDeleteRow(obj){

@@ -29,7 +29,7 @@ public class LoginController {
 	 * 跳转登陆页面
 	 * @return
 	 */
-	@RequestMapping("loginUI")
+	@RequestMapping("loginUI.html")
 	public String loginUI(){
 		  return "login";
 	  } 
@@ -57,7 +57,7 @@ public class LoginController {
 		
 		return SysResult.build(201,"用户登陆失败,请核对用户名与密码！");
 	}
-	@RequestMapping("indexUI.do")
+	@RequestMapping("indexUI.html")
 	public String indexUI(){
 		  return "starter";
 	  }
@@ -65,7 +65,7 @@ public class LoginController {
 	 * 加载分页插件
 	 * @return
 	 */
-	@RequestMapping("pageUI.do")
+	@RequestMapping("pageUI.html")
 	public String pageUI() {
 		return "/common/page";
 	}

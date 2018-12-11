@@ -24,7 +24,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="../../../dist/css/skins/skin-blue.min.css">
   <link rel="stylesheet" href="../../../bower_components/layer/skin/default/layer.css">
   <link rel="stylesheet" href="../../../bower_components/ztree/css/metroStyle/metroStyle.css"/>
-
+  <link href="../../../js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
+<link href="../../../js/kindeditor-4.1.10/plugins/code/prettify.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="../../../js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/kindeditor-4.1.10/plugins/code/prettify.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -78,102 +82,7 @@ desired effect
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
-              <li>
-                <!-- inner menu: contains the messages -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <!-- User Image -->
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <!-- Message title and timestamp -->
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <!-- The message -->
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                </ul>
-                <!-- /.menu -->
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
-          </li>
-          <!-- /.messages-menu -->
-
-          <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <!-- Tasks Menu -->
-          <li class="dropdown tasks-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- Inner menu: contains the tasks -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <!-- Task title and progress text -->
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <!-- The progress bar -->
-                      <div class="progress xs">
-                        <!-- Change the css width attribute to simulate progress -->
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
+  
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -214,14 +123,10 @@ desired effect
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="logout.do" class="btn btn-default btn-sign-out">Sign out</a>
+                  <a href="logout.html" class="btn btn-default btn-sign-out">Sign out</a>
                 </div>
               </li>
             </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
@@ -265,10 +170,18 @@ desired effect
             		<li><a id="serious_illness_prod_c" href="#">已上线产品</a></li>
             	</ul>
             </li>
-            <li><a id="load-menu-id">定期重疾产品</a></li>
+            <li><a id="load-role-id">定期重疾产品</a></li>
             <li><a id="load-role-id">年金产品</a></li>
           </ul>
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>产品管理</span></a></li>        
+        <li class="active">
+        	<a href="#">
+        		<i class="fa fa-link"></i> <span>保险学堂</span>
+       		</a>
+    	</li>
+    	<ul class="productview-menu_school">
+    		<li><a id="insurance_school_class">学堂</a></li>
+            <li><a id="insurance_school_news">新闻</a></li>
+        </ul>        
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>系统管理</span>
             <span class="pull-right-container">
@@ -293,13 +206,13 @@ desired effect
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Page Header
-        <small>Optional description</small>
-      </h1>
+      <h3 class="content-header-title" id="content-header-title">
+        	
+        <small class="content-header-small"></small>
+      </h3>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li><a href="#"><i class="fa fa-dashboard level"></i></a></li>
+        <li class="active active1"></li>
       </ol>
     </section>
 
@@ -411,7 +324,23 @@ desired effect
 .productview-menu_a:hover .serious_illness_prod_a{
 	display:block;
 }
-
+.insurance_school_a{
+	list-style:none;
+    padding-left:20px;
+    display:none
+}
+.insurance_school_a>li{
+    text-align:left;
+}
+.productview-menu_b:hover .insurance_school_a{
+	display:block;
+}
+.active1{
+	padding-left:0px;
+}
+.level:before{
+	margin-right:10px;
+}
 
 </style>
 <!-- ./wrapper -->
@@ -426,37 +355,61 @@ desired effect
 <script src="dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
       $(function(){
+    	  getIndex();
     	  $("#load-role-id").click(function(){
     		 // console.log("hello world");
-    		 $(".container-fluid").load("role/listUI.do",function(){
+    		 $(".container-fluid").load("role/listUI.html",function(){
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
     	  $("#load-user-id").click(function(){
     		 // console.log("hello world");
-    		 $(".container-fluid").load("user/listUI.do",function(){
+    		 $(".container-fluid").load("user/listUI.html",function(){
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
     	  $("#serious_illness_prod_a").click(function(){
     		 // console.log("hello world");
-    		 $(".container-fluid").load("product/seriousIllness.do",function(){
+    		 $(".container-fluid").load("product/seriousIllness.html",function(){
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
     	  $("#serious_illness_prod_b").click(function(){
-    		 $(".container-fluid").load("product/seriousIllnessProduct/soonList.do",function(){
+    		 $(".container-fluid").load("product/seriousIllnessProduct/soonList.html",function(){
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
-    	    $("#serious_illness_prod_c").click(function(){
-    		 $(".container-fluid").load("product/seriousIllnessProduct/onlineList.do",function(){
+    	  $("#serious_illness_prod_c").click(function(){
+    		 $(".container-fluid").load("product/seriousIllnessProduct/onlineList.html",function(){
+    			 $(".container-fluid").removeData("id");
+    		 });
+    	  })
+	      $("#insurance_school_class").click(function(){
+    		 $(".container-fluid").load("school/class/onlineList.html",function(){
+    			 $(".container-fluid").removeData("id");
+    		 });
+    	  })
+    	    $("#insurance_school_news").click(function(){
+    		 $(".container-fluid").load("school/news/onlineList.html",function(){
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
       })
-     
-     
+    function getChange(className,content){
+		var name=document.getElementsByClassName(className);
+		name[0].innerHTML=content;
+	}
+    function getIndex(){
+    		var level=document.getElementsByClassName('fa-dashboard');
+    		var here=document.getElementsByClassName('active1');
+    		var content=document.getElementById('content-header-title').innerHTML;  	
+    		var index1=content.split("-")[0];
+    		var index2=content.split("-")[1];
+    		level[0].innerHTML=index1;
+    		here[0].innerHTML=index2;
+    		console.log(index1);
+    }
+    
 </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

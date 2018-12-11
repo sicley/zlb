@@ -97,7 +97,7 @@
 		  console.log(result);
 		  if(result.status==200){
 			  console.log("aa");
-			location.href="indexUI.do?t="+Math.random();
+			location.href="indexUI.html?t="+Math.random();
 		  }else{
 			$(".login-box-msg").html(result.msg); 
 		  }
