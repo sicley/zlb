@@ -31,4 +31,24 @@
 	<property name="maxUploadSize" value="1048576"></property>
 	<property name="defaultEncoding" value="UTF-8"></property>
 	</bean>
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+           <mvc:interceptor>
+             <!-- 指定拦截哪些请求路径 -->
+             <mvc:mapping path="/**"/>
+             <!-- 排除要拦截的路径 -->
+             <mvc:exclude-mapping path="/loginUI.html"/>
+             <mvc:exclude-mapping path="/**/*.css"/>
+             <mvc:exclude-mapping path="/**/*.js"/>
+             <mvc:exclude-mapping path="/**/*.png"/>
+             <mvc:exclude-mapping path="/**/*.jpg"/>
+             <mvc:exclude-mapping path="/**/*.gif"/>
+             <mvc:exclude-mapping path="/**/*.ico"/>
+             <mvc:exclude-mapping path="/**/*.jpeg"/>
+             <mvc:exclude-mapping path="/**/fonts/*"/>
+             <!-- 拦截器(这个bean也可以通过ref方式引用，前提是在外面要通过xml或注解方式定义) -->
+             <bean class="com.zlb.controller.LoginInterceptor"/>
+           </mvc:interceptor>
+	</mvc:interceptors>
+	
 </beans>

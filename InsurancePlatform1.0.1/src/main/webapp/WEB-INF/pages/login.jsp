@@ -28,9 +28,10 @@
   <!-- Google Font -->
 </head>
 <body class="hold-transition login-page">
+<div class='onit'>
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>众联保-</b>保险服务平台</a>
+    <a href="#"><b>众联保-保险服务平台</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -66,8 +67,24 @@
   </div>
   <!-- /.login-box-body -->
 </div>
+</div>
 <!-- /.login-box -->
+<style>
+.hold-transition{
+	background-image:url(dist/img/photo2.png);
+	background-size:cover;
+	background-repeat:no-repeat;
+	
+filter: gray;
 
+}
+
+.init{
+	width:100%;
+	height:100%;
+	background-color:rgba(0,0,0,0.9)
+}
+</style>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -96,7 +113,6 @@
 	  $.post(url,params,function(result){
 		  console.log(result);
 		  if(result.status==200){
-			  console.log("aa");
 			location.href="indexUI.html?t="+Math.random();
 		  }else{
 			$(".login-box-msg").html(result.msg); 

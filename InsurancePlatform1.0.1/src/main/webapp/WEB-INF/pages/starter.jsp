@@ -18,6 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="../../../bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../../dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/layui.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
@@ -25,6 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="../../../bower_components/layer/skin/default/layer.css">
   <link rel="stylesheet" href="../../../bower_components/ztree/css/metroStyle/metroStyle.css"/>
   <link href="../../../js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
+  
 <link href="../../../js/kindeditor-4.1.10/plugins/code/prettify.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="../../../js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
 <script type="text/javascript" charset="utf-8" src="../../../js/kindeditor-4.1.10/lang/zh_CN.js"></script>
@@ -85,48 +87,14 @@ desired effect
   
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="logout.html" class="btn btn-default btn-sign-out">Sign out</a>
-                </div>
-              </li>
-            </ul>
+            
+              <div class="pull-right">             	 
+                  <a href="logout.html" class="btn-sign-out" style='color:#444'>
+                      <i class="fa fa-sign-out" aria-hidden="true"></i>
+                      <span>退出</span>
+                  </a>
+               </div>
+          
           </li>
         </ul>
       </div>
@@ -144,7 +112,7 @@ desired effect
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p class='userName' id='userName'>用户名</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -155,44 +123,64 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="productview">
+        <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>产品管理</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
-              </span>
+            </span>
           </a>
-          <ul class="productview-menu">
-            <li class='productview-menu_a'>
-            	<a id="serious_illness_prod" href="#">重疾产品</a>
-            	<ul class="serious_illness_prod_a" >
+          <ul class="productview-menu treeview-menu">
+            <li class='productview-menu_a treeview'>
+            	<a id="serious_illness_prod" href="#"><span>重疾产品</span>
+	            	 <span class="pull-right-container">
+	                    <i class="fa fa-angle-left pull-right"></i>
+	                </span>
+            	 </a>
+            	
+            	<ul class="serious_illness_prod_a treeview-menu" >
             		<li><a id="serious_illness_prod_a" href="#">新增产品</a></li>
             		<li><a id="serious_illness_prod_b" href="#">待上线产品</a></li>
             		<li><a id="serious_illness_prod_c" href="#">已上线产品</a></li>
             	</ul>
             </li>
-            <li><a id="load-role-id">定期重疾产品</a></li>
-            <li><a id="load-role-id">年金产品</a></li>
+            <li><a id="load-sers-id">定期重疾产品</a></li>
+            <li><a id="load-year-id">年金产品</a></li>
           </ul>
-        <li class="active">
-        	<a href="#">
-        		<i class="fa fa-link"></i> <span>保险学堂</span>
-       		</a>
-    	</li>
-    	<ul class="productview-menu_school">
-    		<li><a id="insurance_school_class">学堂</a></li>
-            <li><a id="insurance_school_news">新闻</a></li>
-        </ul>        
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>系统管理</span>
+        	
+       		<a href="#"><i class="fa fa-link"></i> <span>保险学堂</span>
+	            <span class="pull-right-container">
+	                <i class="fa fa-angle-left pull-right"></i>
+	            </span>
+            </a>
+       		<ul class="treeview-menu">
+	    		<li><a id="insurance_school_question">问答集锦</a></li>
+	            <li><a id="insurance_school_case">案例讨论</a></li>
+	            <li><a id="insurance_school_industry">行业资讯</a></li>
+           </ul>   
+    	</li>
+    	   
+       <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>用户反馈</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
-              </span>
+            </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">组织管理</a></li>
-            <li><a id="load-menu-id">菜单管理</a></li>
-            <li><a id="load-role-id">角色管理</a></li>
-            <li><a id="load-user-id">用户管理</a></li>
+            <li><a id="feedback-list-id">列表展示</a></li>
+          </ul>
+        </li>
+        
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>活动管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a id="active-create-id">活动生成</a></li>
+            <li><a id="active-list-id">活动列表</a></li>
+             <li><a id="supplie-info-id">供应商管理</a></li>
           </ul>
         </li>
       </ul>
@@ -211,7 +199,7 @@ desired effect
         <small class="content-header-small"></small>
       </h3>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard level"></i></a></li>
+        <li><a href="#"><i class="fa fa-dashboard level" id='fuhao'></i></a></li>
         <li class="active active1"></li>
       </ol>
     </section>
@@ -229,10 +217,10 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2019 <a href="#">Company</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -313,17 +301,22 @@ desired effect
   <div class="control-sidebar-bg"></div>
 </div>
 <style>
+.box{
+	height:auto;
+	min-height:600px;
+	border-top:0px;
+	padding-top:20px;
+	
+}
 .serious_illness_prod_a{
 	list-style:none;
     padding-left:20px;
-    display:none
+    
 }
 .serious_illness_prod_a>li{
     text-align:left;
 }
-.productview-menu_a:hover .serious_illness_prod_a{
-	display:block;
-}
+
 .insurance_school_a{
 	list-style:none;
     padding-left:20px;
@@ -341,6 +334,14 @@ desired effect
 .level:before{
 	margin-right:10px;
 }
+.treeview-menu{
+    padding-left:20px;
+    cursor:pointer;
+}
+.pull-right{
+	margin:15px 40px 0;
+	color:#444;
+}
 
 </style>
 <!-- ./wrapper -->
@@ -353,8 +354,10 @@ desired effect
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script src="layui-v2.4.5/layui/layui.js"></script>
 <script type="text/javascript">
       $(function(){
+    	  getChange("content-header-title","");
     	  getIndex();
     	  $("#load-role-id").click(function(){
     		 // console.log("hello world");
@@ -384,31 +387,140 @@ desired effect
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
-	      $("#insurance_school_class").click(function(){
-    		 $(".container-fluid").load("school/class/onlineList.html",function(){
+	      $("#insurance_school_question").click(function(){
+    		 $(".container-fluid").load("school/question/onlineList.html",function(){
+    		 });
+    	  })
+    	    $("#insurance_school_case").click(function(){
+    		 $(".container-fluid").load("school/case/onlineList.html",function(){
+    		 });
+    	  })
+    	   $("#insurance_school_industry").click(function(){
+    		 $(".container-fluid").load("school/industry/onlineList.html",function(){
+    		 });
+    	  })
+    	  $("#feedback-list-id").click(function(){
+    		 $(".container-fluid").load("feedbackInformation/feedbackList.html",function(){
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
-    	    $("#insurance_school_news").click(function(){
-    		 $(".container-fluid").load("school/news/onlineList.html",function(){
+    	   $("#active-create-id").click(function(){
+    		 $(".container-fluid").load("activity/addUI.html",function(){
     			 $(".container-fluid").removeData("id");
     		 });
     	  })
+    	  $("#active-list-id").click(function(){
+    		 $(".container-fluid").load("activity/activitylist.html",function(){
+    			 $(".container-fluid").removeData("id");
+    		 });
+    	  })
+    	  $("#supplie-info-id").click(function(){
+    		 $(".container-fluid").load("/supplier/supplierList.html",function(){
+    			 $(".container-fluid").removeData("id");
+    		 });
+    	  })
+    	  $('#load-sers-id').click(function(){
+    		 $(".container-fluid").load("/product/forward.html",function(){
+    			 $(".container-fluid").removeData("id");
+    		 });
+    	  })
+    	  $('#load-year-id').click(function(){
+    		 $(".container-fluid").load("/product/forward.html",function(){
+    			 $(".container-fluid").removeData("id");
+    		 });
+    	  })
+    	 $('#userName').html(getCookie('ZLB_TICKET'));
+    	  
+    	 
       })
     function getChange(className,content){
 		var name=document.getElementsByClassName(className);
 		name[0].innerHTML=content;
 	}
     function getIndex(){
+	    	$('#fuhao').show();
+			$('.active1').show();
     		var level=document.getElementsByClassName('fa-dashboard');
     		var here=document.getElementsByClassName('active1');
     		var content=document.getElementById('content-header-title').innerHTML;  	
     		var index1=content.split("-")[0];
     		var index2=content.split("-")[1];
     		level[0].innerHTML=index1;
-    		here[0].innerHTML=index2;
-    		console.log(index1);
+    		if(!index2){
+    			$('#fuhao').hide();
+    			$('.active1').hide();
+    		}
+    		else{
+    			
+    			here[0].innerHTML=index2;
+    		}
+    		
+    		//console.log(index1);
     }
+    /*日期转换函数*/
+    function dateFormat(longTypeDate){  
+        var dateType = "";  
+        var date = new Date();  
+        date.setTime(longTypeDate);  
+        dateType += date.getFullYear();   //年  
+        dateType += "-" + getMonth(date); //月   
+        dateType += "-" + getDay(date);   //日  
+        return dateType;
+    } 
+    //返回 01-12 的月份值   
+    function getMonth(date){  
+        var month = "";  
+        month = date.getMonth() + 1; //getMonth()得到的月份是0-11  
+        if(month<10){  
+            month = "0" + month;  
+        }  
+        return month;  
+    }  
+    //返回01-30的日期  
+    function getDay(date){  
+        var day = "";  
+        day = date.getDate();  
+        if(day<10){  
+            day = "0" + day;  
+        }  
+        return day;  
+    }
+    //状态
+    function getStatus(status){
+    	//console.log(status)
+    	if(status==1){
+    		return "处理中";
+    	}else if(status==2){
+    		return "已处理";
+    	}else if (status==0){
+    		return "未处理";
+    	}
+    }
+    
+    function getCookie(cookie_name){
+        var allcookies = document.cookie;
+        
+        var cookie_pos = allcookies.indexOf(cookie_name);   //索引的长度
+        // 如果找到了索引，就代表cookie存在，
+        // 反之，就说明不存在。
+        if (cookie_pos != -1)
+        {
+            // 把cookie_pos放在值的开始，只要给值加1即可。
+            cookie_pos += cookie_name.length + 1;     
+            var cookie_end = allcookies.indexOf(";", cookie_pos);
+
+            if (cookie_end == -1)
+            {
+                cookie_end = allcookies.length;
+            }
+            var value = unescape(allcookies.substring(cookie_pos, cookie_end));  
+            
+            var value1= value.substring(23); 
+        }
+        
+        return value1;
+    }
+
     
 </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

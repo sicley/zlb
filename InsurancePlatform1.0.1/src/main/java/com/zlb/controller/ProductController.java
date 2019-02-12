@@ -39,12 +39,24 @@ public class ProductController {
 		return "sys/serious_illness";
 	}
 	/**
+	 * 期待页的跳转
+	 * @return
+	 */
+	@RequestMapping("/forward.html")
+	public String dolookforwardIndex() {
+		return "sys/look_forward";
+	}
+	/**
 	 * 产品添加
 	 * @param productName
+	 * @param companyProp
 	 * @param scoreCompany
 	 * @param scoreIllnessNum
 	 * @param scoreIllnessProportion
 	 * @param scoreIllnessTimes
+	 * @param scoreMiddleCaseNum
+	 * @param scoreMiddleCaseProportion
+	 * @param scoreMiddleCaseTimes
 	 * @param scoreDeadDuty
 	 * @param scoreSeriousIllnessDuty
 	 * @param scoreMildCaseNum
@@ -54,6 +66,9 @@ public class ProductController {
 	 * @param attrIllnessNum
 	 * @param attrIllnessProportion
 	 * @param attrIllnessTimes
+	 * @param attrMiddleCaseNum
+	 * @param attrMiddleCaseProportion
+	 * @param attrMiddleCaseTimes
 	 * @param attrDeadDuty
 	 * @param attrSeriousIllnessDuty
 	 * @param attrMildCaseNum
@@ -65,9 +80,11 @@ public class ProductController {
 	@ResponseBody
 	public SysResult doInsertSeriousIllnessProduct(String productName,String companyProp,Float scoreCompany, 
 			Float scoreIllnessNum,Float scoreIllnessProportion,Float scoreIllnessTimes,
+			Float scoreMiddleCaseNum,Float scoreMiddleCaseProportion,Float scoreMiddleCaseTimes,
 			Float scoreDeadDuty,Float scoreSeriousIllnessDuty, Float scoreMildCaseNum,
 			Float scoreMildCaseTimes,Float scoreMildCaseProportion,String attrCompany,
 			String attrIllnessNum,String attrIllnessProportion,String attrIllnessTimes,
+			String attrMiddleCaseNum,String attrMiddleCaseProportion,String attrMiddleCaseTimes,
 			String attrDeadDuty,String attrSeriousIllnessDuty,String attrMildCaseNum,
 			String attrMildCaseTimes,String attrMildCaseProportion) {
 		try {
@@ -82,6 +99,9 @@ public class ProductController {
 			productAttr.setAttrDeadDuty(attrDeadDuty);
 			productAttr.setAttrIllnessNum(attrIllnessNum);
 			productAttr.setAttrIllnessProportion(attrIllnessProportion);
+			productAttr.setAttrMiddleCaseTimes(attrMiddleCaseTimes);
+			productAttr.setAttrMiddleCaseNum(attrMiddleCaseNum);
+			productAttr.setAttrMiddleCaseProportion(attrMiddleCaseProportion);
 			productAttr.setAttrIllnessTimes(attrIllnessTimes);
 			productAttr.setAttrMildCaseNum(attrMildCaseNum);
 			productAttr.setAttrMildCaseProportion(attrMildCaseProportion);
@@ -94,6 +114,9 @@ public class ProductController {
 			productScore.setScoreIllnessNum(scoreIllnessNum);
 			productScore.setScoreIllnessProportion(scoreIllnessProportion);
 			productScore.setScoreIllnessTimes(scoreIllnessTimes);
+			productScore.setScoreMiddleCaseNum(scoreMiddleCaseNum);
+			productScore.setScoreMiddleCaseProportion(scoreMiddleCaseProportion);
+			productScore.setScoreMiddleCaseTimes(scoreMiddleCaseTimes);
 			productScore.setScoreMildCaseNum(scoreMildCaseNum);
 			productScore.setScoreMildCaseTimes(scoreMildCaseTimes);
 			productScore.setScoreMildCaseProportion(scoreMildCaseProportion);
@@ -110,6 +133,10 @@ public class ProductController {
 		}
 		return SysResult.build(201, "产品添加失败！");
 	}
+	/**
+	 * 待上线产品页的跳转
+	 * @return
+	 */
 	@RequestMapping("/seriousIllnessProduct/soonList.html")
 	public String doSoonList() {
 		return "sys/soon_list";
@@ -169,6 +196,22 @@ public class ProductController {
 		}
 		return SysResult.build(201, "上线失败！");
 	}
+	@RequestMapping("/changeStaSoon.do")
+	@ResponseBody
+	public SysResult changeStaSoon(Integer productId) {
+		logger.info("---------------changeStaSoon------------");
+		try {
+			productService.changeStaSoon(productId);
+			return SysResult.build(200, "下线成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SysResult.build(201, "下线失败！");
+	}
+	/**
+	 * 已上线产品页的跳转
+	 * @return
+	 */
 	@RequestMapping("/seriousIllnessProduct/onlineList.html")
 	public String onlineList() {
 		return "sys/online_list";
@@ -201,14 +244,50 @@ public class ProductController {
 	public String updatePage() {
 		return "sys/serious_illness_update";
 	}
+	
+	/**
+	 * 更新重疾产品
+	 * @param productName
+	 * @param companyProp
+	 * @param scoreCompany
+	 * @param scoreIllnessNum
+	 * @param scoreIllnessProportion
+	 * @param scoreIllnessTimes
+	 * @param scoreMiddleCaseNum
+	 * @param scoreMiddleCaseProportion
+	 * @param scoreMiddleCaseTimes
+	 * @param scoreDeadDuty
+	 * @param scoreSeriousIllnessDuty
+	 * @param scoreMildCaseNum
+	 * @param scoreMildCaseTimes
+	 * @param scoreMildCaseProportion
+	 * @param attrCompany
+	 * @param attrIllnessNum
+	 * @param attrIllnessProportion
+	 * @param attrIllnessTimes
+	 * @param attrDeadDuty
+	 * @param attrSeriousIllnessDuty
+	 * @param attrMildCaseNum
+	 * @param attrMiddleCaseNum
+	 * @param attrMiddleCaseProportion
+	 * @param attrMiddleCaseTimes
+	 * @param attrMildCaseTimes
+	 * @param attrMildCaseProportion
+	 * @param productId
+	 * @param attrId
+	 * @param scoreId
+	 * @return
+	 */
 	@RequestMapping(value="/doUpdateSeriousIllnessProduct.do", method = RequestMethod.POST)
 	@ResponseBody
 	public SysResult doUpdateSeriousIllnessProduct(String productName, String companyProp,Float scoreCompany, 
 			Float scoreIllnessNum,Float scoreIllnessProportion,Float scoreIllnessTimes,
+			Float scoreMiddleCaseNum,Float scoreMiddleCaseProportion,Float scoreMiddleCaseTimes,
 			Float scoreDeadDuty,Float scoreSeriousIllnessDuty, Float scoreMildCaseNum,
 			Float scoreMildCaseTimes,Float scoreMildCaseProportion,String attrCompany,
 			String attrIllnessNum,String attrIllnessProportion,String attrIllnessTimes,
 			String attrDeadDuty,String attrSeriousIllnessDuty,String attrMildCaseNum,
+			String attrMiddleCaseNum,String attrMiddleCaseProportion,String attrMiddleCaseTimes,
 			String attrMildCaseTimes,String attrMildCaseProportion,Integer productId,
 			Integer attrId,Integer scoreId) {
 		try {
@@ -228,6 +307,9 @@ public class ProductController {
 			productAttr.setAttrIllnessNum(attrIllnessNum);
 			productAttr.setAttrIllnessProportion(attrIllnessProportion);
 			productAttr.setAttrIllnessTimes(attrIllnessTimes);
+			productAttr.setAttrMiddleCaseTimes(attrMiddleCaseTimes);
+			productAttr.setAttrMiddleCaseNum(attrMiddleCaseNum);
+			productAttr.setAttrMiddleCaseProportion(attrMiddleCaseProportion);
 			productAttr.setAttrMildCaseNum(attrMildCaseNum);
 			productAttr.setAttrMildCaseProportion(attrMildCaseProportion);
 			productAttr.setAttrMildCaseTimes(attrMildCaseTimes);
@@ -240,6 +322,9 @@ public class ProductController {
 			productScore.setScoreIllnessNum(scoreIllnessNum);
 			productScore.setScoreIllnessProportion(scoreIllnessProportion);
 			productScore.setScoreIllnessTimes(scoreIllnessTimes);
+			productScore.setScoreMiddleCaseNum(scoreMiddleCaseNum);
+			productScore.setScoreMiddleCaseProportion(scoreMiddleCaseProportion);
+			productScore.setScoreMiddleCaseTimes(scoreMiddleCaseTimes);
 			productScore.setScoreMildCaseNum(scoreMildCaseNum);
 			productScore.setScoreMildCaseTimes(scoreMildCaseTimes);
 			productScore.setScoreMildCaseProportion(scoreMildCaseProportion);

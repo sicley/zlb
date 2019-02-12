@@ -30,7 +30,7 @@
 					    <input type="text" class="form-control" id="score_company" >
 					  </div>
 					</form>
-						<form class="form-inline">
+					<form class="form-inline">
 					  <div class="form-group">
 					    <label for="attr_illness_num">重疾数量</label>
 					    <textarea class="form-control" rows="3"style="width:270px" id="attr_illness_num"> </textarea>
@@ -40,7 +40,7 @@
 					    <input type="text" class="form-control" id="score_illness_num" >
 					  </div>
 					</form>
-						<form class="form-inline">
+					<form class="form-inline">
 					  <div class="form-group">
 					    <label for="attr_illness_proportion">重疾赔付比例</label>
 					    <textarea class="form-control" rows="3" style="width:270px"id="attr_illness_proportion"> </textarea>
@@ -58,6 +58,36 @@
 					  <div class="form-group">
 					    <label for="score_illness_times">评分</label>
 					    <input type="text" class="form-control" id="score_illness_times" >
+					  </div>
+					</form>
+					<form class="form-inline">
+					  <div class="form-group">
+					    <label for="attr_middle_case_num">中症数量</label>
+					    <textarea class="form-control" rows="3"style="width:270px" id="attr_middle_case_num"> </textarea>
+					  </div>
+					  <div class="form-group">
+					    <label for="score_middle_case_num">评分</label>
+					    <input type="text" class="form-control" id="score_middle_case_num" >
+					  </div>
+					</form>
+					<form class="form-inline">
+					  <div class="form-group">
+					    <label for="attr_middle_case_proportion">中症赔付比例</label>
+					    <textarea class="form-control" rows="3" style="width:270px"id="attr_middle_case_proportion"> </textarea>
+					  </div>
+					  <div class="form-group">
+					    <label for="score_middle_case_proportion">评分</label>
+					    <input type="text" class="form-control" id="score_middle_case_proportion" >
+					  </div>
+					</form>
+					<form class="form-inline">
+					  <div class="form-group">
+					    <label for="attr_middle_case_times">中症赔付次数</label>
+					    <textarea class="form-control" rows="3" style="width:270px"id="attr_middle_case_times"> </textarea>
+					  </div>
+					  <div class="form-group">
+					    <label for="score_middle_case_times">评分</label>
+					    <input type="text" class="form-control" id="score_middle_case_times" >
 					  </div>
 					</form>
 					<form class="form-inline">
@@ -115,7 +145,7 @@
 			<!-- /.box-header -->
 		<div class="box-body table-responsive no-padding">
           <button type="button" class="btn btn-success" id="com_submit" style="width:70px" onClick=getParams()>保存</button>
-          <button type="button" class="btn btn-warning" id="com_cancel" style="width:70px">取消</button>
+          <button type="button" class="btn btn-warning" id="com_cancel" style="width:70px"  onClick=getClear()>取消</button>
         </div>
 
 			<!-- /.box-body -->
@@ -181,8 +211,11 @@ function getParams(){
 	var params={};
 	params.attrCompany=getParamsVal('attr_company');
 	params.attrIllnessNum=getParamsNumVal('attr_illness_num');
+	params.attrMiddleCaseNum=getParamsNumVal('attr_middle_case_num');
 	params.attrIllnessProportion=getParamsVal('attr_illness_proportion');
+	params.attrMiddleCaseProportion=getParamsVal('attr_middle_case_proportion');
 	params.attrIllnessTimes=getParamsVal('attr_illness_times');
+	params.attrMiddleCaseTimes=getParamsVal('attr_middle_case_times');
 	params.attrDeadDuty=getParamsVal('attr_dead_duty');
 	params.attrSeriousIllnessDuty=getParamsVal('attr_serious_illness_duty');
 	params.attrMildCaseNum=getParamsNumVal('attr_mild_case_num');
@@ -190,8 +223,11 @@ function getParams(){
 	params.attrMildCaseProportion=getParamsVal('attr_mild_case_proportion');
 	params.scoreCompany=getParamsScoreVal('score_company');
 	params.scoreIllnessNum=getParamsScoreVal('score_illness_num');
+	params.scoreMiddleCaseNum=getParamsScoreVal('score_middle_case_num');
 	params.scoreIllnessProportion=getParamsScoreVal('score_illness_proportion');
+	params.scoreMiddleCaseProportion=getParamsScoreVal('score_middle_case_proportion');
 	params.scoreIllnessTimes=getParamsScoreVal('score_illness_times');
+	params.scoreMiddleCaseTimes=getParamsScoreVal('score_middle_case_times');
 	params.scoreDeadDuty=getParamsScoreVal('score_dead_duty');
 	params.scoreSeriousIllnessDuty=getParamsScoreVal('score_serious_illness_duty');
 	params.scoreMildCaseNum=getParamsScoreVal('score_mild_case_num');
@@ -199,7 +235,7 @@ function getParams(){
 	params.scoreMildCaseProportion=getParamsScoreVal('score_mild_case_proportion');
 	params.productName=getParamsVal('product_name');
 	params.companyProp=getComProp('compony_prop');
-	console.log(params.componyProp);
+	console.log(params.companyProp);
 	//发起请求执行新增操作
 	if(attrNullFlag==true&&scoreFlag==true&&attrFlag==true&&scoreNullFlag==true){
 		var url="product/doInsertSeriousIllnessProduct.do";
@@ -223,11 +259,13 @@ function getComProp(param){
 	var componyProp=document.getElementById(param);
 	var index=componyProp.selectedIndex ;
 	componyProp=componyProp.options[index].value;
+	console.log(componyProp)
 	return componyProp;
 }
 function getParamsVal(param){
 	var div=document.getElementById(param);
 	var paramVal=div.value;
+	paramVal=paramVal.replace(/\s+/g,""); 
 	if(paramVal=="" && attrNullFlag==true){
 		attrNullFlag=false;
 		alert("内容部分不能为空！");
@@ -242,6 +280,7 @@ function getParamsVal(param){
 function getParamsScoreVal(param){
 	var div=document.getElementById(param);
 	var paramVal=div.value;
+	paramVal=paramVal.replace(/\s+/g,""); 
 	if(paramVal.length<1 && scoreFlag==true){
 		scoreFlag=false;
 		alert("评分不能为空！");
@@ -257,6 +296,7 @@ function getParamsScoreVal(param){
 function getParamsNumVal(param){
 	var div=document.getElementById(param);
 	var paramVal=div.value;
+	paramVal=paramVal.replace(/\s+/g,""); 
 	if(paramVal>999 ||paramVal<0 ||isNaN(paramVal) || paramVal%1!=0 && scoreNullFlag==true){
 		scoreNullFlag=false;
 		alert("数量请输入0-999的整数！");
@@ -337,7 +377,11 @@ function getSelectedId(){
 	//1.2获得选中数组中下标为0的元素id的值
 	return selections[0].id;
   }
-
+function getClear(){
+	clearContent();
+	$(".container-fluid").load("product/seriousIllnessProduct/soonList.html",function(){
+	 });
+}
 
 </script>
 

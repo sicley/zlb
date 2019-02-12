@@ -7,7 +7,6 @@ import com.zlb.pojo.SysUser;
 
 
 public interface SysUserService {
-	public String findUserByUP(SysUser sysUser);
-	
+	String findUserByUP(SysUser sysUser);
 
 }

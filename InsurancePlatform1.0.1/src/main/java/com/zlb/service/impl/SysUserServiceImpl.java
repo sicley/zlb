@@ -2,9 +2,15 @@ package com.zlb.service.impl;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zlb.common.exception.ServiceException;
 import com.zlb.controller.LoginController;
 import com.zlb.mapper.SysUserMapper;
 import com.zlb.pojo.SysUser;
@@ -29,9 +35,10 @@ public class SysUserServiceImpl implements SysUserService{
 		}
 		//用户名和密码正确 生成秘钥
 		String ticket = "JT_TICKET_"+System.currentTimeMillis() + sysUser.getUsername();
-		ticket = DigestUtils.md5Hex(ticket);
+		//ticket = DigestUtils.md5Hex(ticket);
 		return ticket;
 	}
-	 
+	
+
 
 }

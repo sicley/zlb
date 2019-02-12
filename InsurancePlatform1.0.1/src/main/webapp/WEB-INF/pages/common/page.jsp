@@ -4,10 +4,22 @@
 	<li><a class="pre">上一页</a></li>
 	<li><a class="next">下一页</a></li>
 	<li><a class="last">尾页</a></li>
-	<li><a class="rowCount">总记录数(3)</a></li>
-	<li><a class="pageCount">总页数(3)</a></li>
+	<li><a class="rowCount">总记录数(1)</a></li>
+	<li><a class="pageCount">总页数(1)</a></li>
 	<li><a class="pageCurrent">当前页(1)</a></li>
 </ul>
+<style>
+	.box{
+	position:relative;
+	padding-bottom:100px;
+}
+#pageId{
+	position:absolute;
+	bottom:20px;
+	right:20px;
+	border-top:0px;
+}
+</style>
 <script type="text/javascript">
 //注册分页click 监听事件
 $("#pageId").on("click",".first,.pre,.next,.last",doJumpToPage)
